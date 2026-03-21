@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HoleX Studios — NanoSatellites & CubeSat</title>
+<title>HoleX Studios — NanoSatellites &amp; CubeSat</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -109,7 +109,6 @@ nav {
   border-bottom: 1px solid var(--border);
 }
 .nav-logo { display: flex; align-items: center; gap: 14px; }
-/* LOGO IMAGE AREA */
 .nav-logo-img-wrap {
   position: relative;
   width: 38px; height: 38px;
@@ -672,7 +671,6 @@ section { position: relative; z-index: 1; }
 .f1-car-change-btn:hover { color: var(--f1red); border-color: var(--f1red); }
 .f1-car-change-btn input[type="file"] { display: none; }
 
-/* F1 CAR SVG (fallback, shown when no photo uploaded) */
 .f1-car-wrap { width: 340px; animation: carFloat 3s ease-in-out infinite; }
 .f1-car-wrap.hidden { display: none; }
 
@@ -768,6 +766,17 @@ footer {
 .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.8s, transform 0.8s; }
 .reveal.visible { opacity: 1; transform: none; }
 
+/* SAVE INDICATOR */
+.save-indicator {
+  position: fixed; bottom: 24px; right: 28px; z-index: 9995;
+  font-family: 'Share Tech Mono', monospace; font-size: 0.6rem;
+  letter-spacing: 0.2em; color: var(--cyan);
+  background: rgba(2,8,16,0.92); border: 1px solid rgba(0,229,255,0.3);
+  padding: 8px 16px; opacity: 0; transition: opacity 0.4s;
+  pointer-events: none;
+}
+.save-indicator.show { opacity: 1; }
+
 /* ANIMATIONS */
 @keyframes fadeUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:none; } }
 @keyframes fadeIn  { from { opacity:0; } to { opacity:1; } }
@@ -806,10 +815,12 @@ footer {
 <div class="grid-overlay"></div>
 <canvas id="starfield"></canvas>
 
+<!-- Save indicator -->
+<div class="save-indicator" id="saveIndicator">▸ GUARDADO EN DISPOSITIVO</div>
+
 <!-- NAV -->
 <nav>
   <div class="nav-logo">
-    <!-- ① LOGO IMAGE — click to upload -->
     <div class="nav-logo-img-wrap" id="navLogoWrap" title="Haz clic para subir tu logo">
       <img id="navLogoImg" alt="Logo HoleX Studios">
       <div class="nav-logo-placeholder" id="navLogoPlaceholder">
@@ -972,7 +983,7 @@ footer {
       <div class="corner-tl"></div>
       <span class="service-number">01</span>
       <span class="service-icon">⚙️</span>
-      <h3 class="service-title">DISEÑO & FABRICACIÓN</h3>
+      <h3 class="service-title">DISEÑO &amp; FABRICACIÓN</h3>
       <p class="service-desc">Diseño custom de plataformas CubeSat adaptadas a los requerimientos de cada misión. Integración de cargas útiles y pruebas completas: vibración, vacuum-thermal y EMI/EMC.</p>
     </div>
     <div class="service-card reveal">
@@ -993,7 +1004,7 @@ footer {
       <div class="corner-tl"></div>
       <span class="service-number">04</span>
       <span class="service-icon">🎓</span>
-      <h3 class="service-title">FORMACIÓN & CONSULTING</h3>
+      <h3 class="service-title">FORMACIÓN &amp; CONSULTING</h3>
       <p class="service-desc">Kits didácticos de CubeSat, talleres de ingeniería aeroespacial y consultoría estratégica para agencias espaciales y startups que planean su primera misión orbital.</p>
     </div>
   </div>
@@ -1036,7 +1047,7 @@ footer {
           <div class="video-meta-row">
             <span class="video-tag">LANZAMIENTO // 2024</span>
           </div>
-          <input class="video-title-input" type="text" value="HoleX Deep 6U — Misión Leo-7 Launch Campaign" placeholder="Título del vídeo...">
+          <input class="video-title-input" id="videoTitle0" type="text" value="HoleX Deep 6U — Misión Leo-7 Launch Campaign" placeholder="Título del vídeo...">
           <div class="video-duration" id="videoDur0">⏱ —</div>
         </div>
       </div>
@@ -1060,7 +1071,7 @@ footer {
           <div class="video-meta-row">
             <span class="video-tag">TECH DEMO</span>
           </div>
-          <input class="video-title-input" type="text" value="Integración CubeSat 3U en Cleanroom" placeholder="Título del vídeo...">
+          <input class="video-title-input" id="videoTitle1" type="text" value="Integración CubeSat 3U en Cleanroom" placeholder="Título del vídeo...">
           <div class="video-duration" id="videoDur1">⏱ —</div>
         </div>
       </div>
@@ -1084,19 +1095,17 @@ footer {
           <div class="video-meta-row">
             <span class="video-tag">GROUND STATION</span>
           </div>
-          <input class="video-title-input" type="text" value="Primera Señal de Telemetría Confirmada" placeholder="Título del vídeo...">
+          <input class="video-title-input" id="videoTitle2" type="text" value="Primera Señal de Telemetría Confirmada" placeholder="Título del vídeo...">
           <div class="video-duration" id="videoDur2">⏱ —</div>
         </div>
       </div>
     </div>
-    <!-- ADD VIDEO BUTTON -->
     <button class="video-add-btn" onclick="addVideoSlot()">+ AÑADIR NUEVO VÍDEO</button>
   </div>
 
   <!-- IMAGES PANEL -->
   <div class="media-panel" id="panel-imagenes">
     <div class="image-gallery reveal" id="imageGallery">
-      <!-- GALLERY ITEMS — click to replace with real image -->
       <div class="gallery-item" id="galleryItem0">
         <div class="gallery-placeholder" style="height:250px">
           <div class="gp-glow"></div><span class="gp-icon">🛰</span>
@@ -1157,7 +1166,6 @@ footer {
           <input type="file" accept="image/*" class="gallery-file-input" onchange="loadGalleryImage(5, this)">
         </div>
       </div>
-      <!-- ADD NEW IMAGE BUTTON -->
       <div class="gallery-add-wrap">
         <div class="gallery-add-btn" id="galleryAddBtn">
           <span style="font-size:1.6rem">＋</span>
@@ -1188,7 +1196,6 @@ footer {
     <h2 class="section-title">HOLEX <span style="background:linear-gradient(90deg,#e63200,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">RACING</span> TEAM</h2>
   </div>
 
-  <!-- BANNER -->
   <div class="f1-banner reveal">
     <div class="f1-banner-bg"></div>
     <div class="f1-speed-lines"></div>
@@ -1205,17 +1212,13 @@ footer {
         </div>
       </div>
 
-      <!-- ③ F1 CAR PHOTO ZONE -->
       <div class="f1-car-photo-zone" id="f1CarZone">
-        <!-- Real photo (hidden until uploaded) -->
         <img class="f1-car-real" id="f1CarReal" alt="Coche F1 HoleX Racing">
-        <!-- Upload placeholder (shown by default) -->
         <div class="f1-car-upload-placeholder" id="f1CarPlaceholder">
           <span class="placeholder-icon">🏎️</span>
           <span class="placeholder-text">HAGA CLIC PARA SUBIR<br>LA FOTO DEL COCHE</span>
           <input type="file" accept="image/*" id="f1CarFile" onchange="loadF1CarPhoto(this)">
         </div>
-        <!-- Change photo button (shown after upload) -->
         <div class="f1-car-change-btn" id="f1CarChangeBtn">
           <label style="cursor:none;display:flex;align-items:center;gap:6px;">
             ↺ CAMBIAR FOTO
@@ -1228,7 +1231,6 @@ footer {
     </div>
   </div>
 
-  <!-- DRIVER CARDS -->
   <div class="f1-grid reveal">
     <div class="f1-card">
       <div class="f1-num">01</div>
@@ -1262,7 +1264,6 @@ footer {
     </div>
   </div>
 
-  <!-- STANDINGS + CALENDAR -->
   <div class="f1-bottom reveal">
     <div>
       <div class="f1-standings">
@@ -1312,7 +1313,7 @@ footer {
       </div>
       <p>Tanto si tienes un concepto de misión definido como si estás en fase exploratoria, nuestro equipo de ingenieros te ayudará a evaluar la viabilidad y definir la arquitectura óptima.</p>
       <div class="contact-detail"><div class="contact-detail-icon">📍</div><span>Madrid, España · Parque Tecnológico Aeroespacial</span></div>
-      <div class="contact-detail"><div class="contact-detail-icon">✉️</div><span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0c61657f7f6563627f4c64636069747f78796865637f227f7c6d6f69">[email&#160;protected]</a></span></div>
+      <div class="contact-detail"><div class="contact-detail-icon">✉️</div><span>mission@holexstudios.com</span></div>
       <div class="contact-detail"><div class="contact-detail-icon">📡</div><span>Ground Station: 40.4°N, 3.7°W</span></div>
     </div>
     <div class="contact-form reveal">
@@ -1331,7 +1332,55 @@ footer {
   <div class="footer-copy">ADVANCED SPACE SYSTEMS · NANOSATELLITES · CUBESAT · LEO CONSTELLATIONS · F1</div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
+/* =====================================================
+   INDEXEDDB — ALMACENAMIENTO PERMANENTE
+   Base de datos: holexDB  |  Store: assets
+   Clave → valor (Blob o string)
+   ===================================================== */
+const DB_NAME  = 'holexDB';
+const DB_VER   = 1;
+const STORE    = 'assets';
+let   db       = null;
+
+function openDB() {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(DB_NAME, DB_VER);
+    req.onupgradeneeded = e => {
+      e.target.result.createObjectStore(STORE);
+    };
+    req.onsuccess  = e => { db = e.target.result; resolve(db); };
+    req.onerror    = e => reject(e.target.error);
+  });
+}
+
+function dbSave(key, value) {
+  return new Promise((resolve, reject) => {
+    const tx  = db.transaction(STORE, 'readwrite');
+    const req = tx.objectStore(STORE).put(value, key);
+    req.onsuccess = () => { showSaved(); resolve(); };
+    req.onerror   = e => reject(e.target.error);
+  });
+}
+
+function dbLoad(key) {
+  return new Promise((resolve, reject) => {
+    const tx  = db.transaction(STORE, 'readonly');
+    const req = tx.objectStore(STORE).get(key);
+    req.onsuccess = e => resolve(e.target.result ?? null);
+    req.onerror   = e => reject(e.target.error);
+  });
+}
+
+/* ==================== SAVE INDICATOR ==================== */
+let saveTimer = null;
+function showSaved() {
+  const el = document.getElementById('saveIndicator');
+  el.classList.add('show');
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => el.classList.remove('show'), 2200);
+}
+
 /* ==================== CURSOR ==================== */
 const cursor = document.getElementById('cursor');
 const cursorRing = document.getElementById('cursorRing');
@@ -1339,19 +1388,19 @@ let mx = 0, my = 0, rx = 0, ry = 0;
 document.addEventListener('mousemove', e => {
   mx = e.clientX; my = e.clientY;
   cursor.style.left = mx + 'px';
-  cursor.style.top = my + 'px';
+  cursor.style.top  = my + 'px';
 });
 (function animRing() {
   rx += (mx - rx) * 0.12;
   ry += (my - ry) * 0.12;
   cursorRing.style.left = rx + 'px';
-  cursorRing.style.top = ry + 'px';
+  cursorRing.style.top  = ry + 'px';
   requestAnimationFrame(animRing);
 })();
 
 /* ==================== STARFIELD ==================== */
 const canvas = document.getElementById('starfield');
-const ctx = canvas.getContext('2d');
+const ctx    = canvas.getContext('2d');
 function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
@@ -1407,65 +1456,131 @@ function switchTab(tab) {
 
 /* ==================== YOUTUBE EMBED ==================== */
 function loadEmbed() {
-  const url = document.getElementById('embedUrl').value.trim();
+  const url   = document.getElementById('embedUrl').value.trim();
   const match = url.match(/(?:v=|youtu\.be\/|embed\/)([a-zA-Z0-9_-]{11})/);
   const container = document.getElementById('embedContainer');
   if (match) {
     container.innerHTML = '<iframe src="https://www.youtube.com/embed/' + match[1] + '" frameborder="0" allowfullscreen></iframe>';
   } else {
-    container.innerHTML = '<p class="embed-error">// URL NO VÁLIDA — Usa una URL de YouTube como: https://www.youtube.com/watch?v=XXXXXXXXXXX</p>';
+    container.innerHTML = '<p class="embed-error">// URL NO VÁLIDA — Usa: https://www.youtube.com/watch?v=XXXXXXXXXXX</p>';
   }
 }
 document.getElementById('embedUrl').addEventListener('keydown', e => { if (e.key === 'Enter') loadEmbed(); });
 
-/* ==================== ① NAV LOGO UPLOAD ==================== */
-const navLogoWrap = document.getElementById('navLogoWrap');
-const navLogoFile = document.getElementById('navLogoFile');
-const navLogoImg  = document.getElementById('navLogoImg');
+/* =====================================================
+   NAV LOGO — persistente con IndexedDB
+   ===================================================== */
+const navLogoWrap        = document.getElementById('navLogoWrap');
+const navLogoFile        = document.getElementById('navLogoFile');
+const navLogoImg         = document.getElementById('navLogoImg');
 const navLogoPlaceholder = document.getElementById('navLogoPlaceholder');
 
 navLogoWrap.addEventListener('click', () => navLogoFile.click());
-navLogoFile.addEventListener('change', function() {
+
+navLogoFile.addEventListener('change', async function() {
   if (!this.files[0]) return;
-  const reader = new FileReader();
-  reader.onload = e => {
-    navLogoImg.src = e.target.result;
-    navLogoImg.classList.add('loaded');
-    navLogoPlaceholder.style.display = 'none';
-  };
-  reader.readAsDataURL(this.files[0]);
+  const blob = this.files[0];
+  applyNavLogo(URL.createObjectURL(blob));
+  await dbSave('logo_nav', blob);
 });
 
-/* ==================== ② VIDEO UPLOADS ==================== */
+function applyNavLogo(url) {
+  navLogoImg.src = url;
+  navLogoImg.classList.add('loaded');
+  navLogoPlaceholder.style.display = 'none';
+}
+
+async function restoreNavLogo() {
+  const blob = await dbLoad('logo_nav');
+  if (blob) applyNavLogo(URL.createObjectURL(blob));
+}
+
+/* =====================================================
+   VIDEOS — persistentes con IndexedDB
+   ===================================================== */
 let videoCount = 3;
 
-function loadVideo(index, input) {
-  if (!input.files[0]) return;
-  const file = input.files[0];
-  const url = URL.createObjectURL(file);
-  const videoEl = document.getElementById('videoEl' + index);
-  const zone = document.getElementById('videoZone' + index);
-  const durEl = document.getElementById('videoDur' + index);
-  // Hide the upload button after loading
-  const uploadBtn = input.closest('.video-upload-btn');
-  if (uploadBtn) uploadBtn.style.display = 'none';
+function applyVideo(index, blobUrl, title, duration) {
+  const videoEl  = document.getElementById('videoEl' + index);
+  const zone     = document.getElementById('videoZone' + index);
+  const durEl    = document.getElementById('videoDur' + index);
+  const titleEl  = document.getElementById('videoTitle' + index);
+  const uploadBtn = document.querySelector('#videoSlot' + index + ' .video-upload-btn');
 
-  videoEl.src = url;
+  if (!videoEl) return;
+  videoEl.src = blobUrl;
   videoEl.classList.add('loaded');
   zone.classList.add('has-video');
+  if (uploadBtn) uploadBtn.style.display = 'none';
+  if (durEl && duration) durEl.textContent = '⏱ ' + duration;
+  if (titleEl && title) titleEl.value = title;
+}
 
-  videoEl.onloadedmetadata = () => {
-    const secs = Math.floor(videoEl.duration);
-    const m = Math.floor(secs / 60);
-    const s = secs % 60;
-    if (durEl) durEl.textContent = '⏱ ' + m + ':' + String(s).padStart(2,'0');
+async function loadVideo(index, input) {
+  if (!input.files[0]) return;
+  const blob = input.files[0];
+  const blobUrl = URL.createObjectURL(blob);
+
+  // Show immediately
+  const videoEl = document.getElementById('videoEl' + index);
+  applyVideo(index, blobUrl, null, null);
+
+  // Get duration then save
+  videoEl.onloadedmetadata = async () => {
+    const secs     = Math.floor(videoEl.duration);
+    const m        = Math.floor(secs / 60);
+    const s        = secs % 60;
+    const durStr   = m + ':' + String(s).padStart(2, '0');
+    const durEl    = document.getElementById('videoDur' + index);
+    if (durEl) durEl.textContent = '⏱ ' + durStr;
+
+    // Persist blob + metadata
+    await dbSave('video_blob_' + index, blob);
+    await dbSave('video_meta_' + index, {
+      duration: durStr,
+      title: (document.getElementById('videoTitle' + index) || {}).value || ''
+    });
   };
 }
 
-function addVideoSlot() {
-  const idx = videoCount++;
+// Save title changes
+document.addEventListener('change', async e => {
+  if (e.target.classList.contains('video-title-input')) {
+    // Find index
+    const slot = e.target.closest('[id^="videoSlot"]');
+    if (!slot) return;
+    const idx = parseInt(slot.id.replace('videoSlot', ''));
+    const meta = (await dbLoad('video_meta_' + idx)) || {};
+    meta.title = e.target.value;
+    await dbSave('video_meta_' + idx, meta);
+  }
+});
+
+async function restoreVideos() {
+  // Restore fixed slots 0-2
+  for (let i = 0; i < 3; i++) {
+    const blob = await dbLoad('video_blob_' + i);
+    const meta = await dbLoad('video_meta_' + i);
+    if (blob) {
+      applyVideo(i, URL.createObjectURL(blob), meta?.title, meta?.duration);
+    }
+  }
+  // Restore dynamic slots
+  const extraCount = (await dbLoad('video_extra_count')) || 0;
+  for (let i = 3; i < 3 + extraCount; i++) {
+    const blob = await dbLoad('video_blob_' + i);
+    const meta = await dbLoad('video_meta_' + i);
+    if (blob) {
+      addVideoSlotDOM(i, meta?.title);
+      videoCount = Math.max(videoCount, i + 1);
+      applyVideo(i, URL.createObjectURL(blob), meta?.title, meta?.duration);
+    }
+  }
+}
+
+function addVideoSlotDOM(idx, titleVal) {
   const grid = document.getElementById('videoGrid');
-  const div = document.createElement('div');
+  const div  = document.createElement('div');
   div.className = 'video-item';
   div.id = 'videoSlot' + idx;
   div.innerHTML = `
@@ -1487,81 +1602,156 @@ function addVideoSlot() {
       <div class="video-meta-row">
         <span class="video-tag">NUEVO VÍDEO</span>
       </div>
-      <input class="video-title-input" type="text" placeholder="Título del vídeo...">
+      <input class="video-title-input" id="videoTitle${idx}" type="text" value="${titleVal || ''}" placeholder="Título del vídeo...">
       <div class="video-duration" id="videoDur${idx}">⏱ —</div>
     </div>`;
-  // Insert before the add button
   grid.appendChild(div);
 }
 
-/* ==================== ② IMAGE GALLERY UPLOADS ==================== */
-let galleryCount = 6;
-
-function loadGalleryImage(index, input) {
-  if (!input.files[0]) return;
-  const reader = new FileReader();
-  reader.onload = e => {
-    const item = document.getElementById('galleryItem' + index);
-    // Replace placeholder with real img
-    item.innerHTML = `
-      <img class="gallery-real-img" src="${e.target.result}" alt="Imagen galería">
-      <div class="gallery-upload-zone">
-        <span>↺ CAMBIAR</span>
-        <input type="file" accept="image/*" class="gallery-file-input" onchange="loadGalleryImage(${index}, this)">
-      </div>`;
-  };
-  reader.readAsDataURL(input.files[0]);
+async function addVideoSlot() {
+  const idx = videoCount++;
+  addVideoSlotDOM(idx, '');
+  // Save new count
+  await dbSave('video_extra_count', videoCount - 3);
 }
 
-function addGalleryImages(input) {
+/* =====================================================
+   GALLERY IMAGES — persistentes con IndexedDB
+   ===================================================== */
+let galleryCount = 6;
+
+function applyGalleryImage(index, url) {
+  const item = document.getElementById('galleryItem' + index);
+  if (!item) return;
+  item.innerHTML = `
+    <img class="gallery-real-img" src="${url}" alt="Imagen galería">
+    <div class="gallery-upload-zone">
+      <span>↺ CAMBIAR</span>
+      <input type="file" accept="image/*" class="gallery-file-input" onchange="loadGalleryImage(${index}, this)">
+    </div>`;
+}
+
+async function loadGalleryImage(index, input) {
+  if (!input.files[0]) return;
+  const blob   = input.files[0];
+  const reader = new FileReader();
+  reader.onload = async e => {
+    applyGalleryImage(index, e.target.result);
+    // Save as blob for efficiency, but base64 works too — we use blob
+    await dbSave('gallery_blob_' + index, blob);
+  };
+  reader.readAsDataURL(blob);
+}
+
+async function addGalleryImages(input) {
   if (!input.files.length) return;
   const gallery = document.getElementById('imageGallery');
-  const addBtn = document.getElementById('galleryAddBtn').parentElement;
+  const addBtn  = document.getElementById('galleryAddBtn').parentElement;
 
-  Array.from(input.files).forEach(file => {
-    const idx = galleryCount++;
-    const reader = new FileReader();
-    reader.onload = e => {
+  const promises = Array.from(input.files).map(file => {
+    return new Promise(resolve => {
+      const idx    = galleryCount++;
+      const reader = new FileReader();
+      reader.onload = async e => {
+        const div = document.createElement('div');
+        div.className = 'gallery-item';
+        div.id = 'galleryItem' + idx;
+        div.innerHTML = `
+          <img class="gallery-real-img" src="${e.target.result}" alt="Imagen galería">
+          <div class="gallery-upload-zone">
+            <span>↺ CAMBIAR</span>
+            <input type="file" accept="image/*" class="gallery-file-input" onchange="loadGalleryImage(${idx}, this)">
+          </div>`;
+        gallery.insertBefore(div, addBtn);
+        await dbSave('gallery_blob_' + idx, file);
+        resolve();
+      };
+      reader.readAsDataURL(file);
+    });
+  });
+
+  await Promise.all(promises);
+  await dbSave('gallery_extra_count', galleryCount - 6);
+}
+
+async function restoreGallery() {
+  // Fixed slots 0-5
+  for (let i = 0; i < 6; i++) {
+    const blob = await dbLoad('gallery_blob_' + i);
+    if (blob) {
+      const url = await blobToDataURL(blob);
+      applyGalleryImage(i, url);
+    }
+  }
+  // Dynamic extras
+  const extra = (await dbLoad('gallery_extra_count')) || 0;
+  const gallery = document.getElementById('imageGallery');
+  const addBtn  = document.getElementById('galleryAddBtn').parentElement;
+  for (let i = 6; i < 6 + extra; i++) {
+    const blob = await dbLoad('gallery_blob_' + i);
+    if (blob) {
+      galleryCount = Math.max(galleryCount, i + 1);
+      const url = await blobToDataURL(blob);
       const div = document.createElement('div');
       div.className = 'gallery-item';
-      div.id = 'galleryItem' + idx;
+      div.id = 'galleryItem' + i;
       div.innerHTML = `
-        <img class="gallery-real-img" src="${e.target.result}" alt="Imagen galería">
+        <img class="gallery-real-img" src="${url}" alt="Imagen galería">
         <div class="gallery-upload-zone">
           <span>↺ CAMBIAR</span>
-          <input type="file" accept="image/*" class="gallery-file-input" onchange="loadGalleryImage(${idx}, this)">
+          <input type="file" accept="image/*" class="gallery-file-input" onchange="loadGalleryImage(${i}, this)">
         </div>`;
       gallery.insertBefore(div, addBtn);
-    };
-    reader.readAsDataURL(file);
+    }
+  }
+}
+
+function blobToDataURL(blob) {
+  return new Promise(resolve => {
+    const r = new FileReader();
+    r.onload = e => resolve(e.target.result);
+    r.readAsDataURL(blob);
   });
 }
 
-/* ==================== ③ F1 CAR PHOTO ==================== */
+/* =====================================================
+   F1 CAR PHOTO — persistente con IndexedDB
+   ===================================================== */
 const f1CarFile        = document.getElementById('f1CarFile');
 const f1CarReal        = document.getElementById('f1CarReal');
 const f1CarPlaceholder = document.getElementById('f1CarPlaceholder');
 const f1CarChangeBtn   = document.getElementById('f1CarChangeBtn');
 
 f1CarPlaceholder.addEventListener('click', () => f1CarFile.click());
-f1CarFile.addEventListener('change', handleF1CarUpload);
 
-function loadF1CarPhoto(input) {
+async function loadF1CarPhoto(input) {
   if (!input.files[0]) return;
-  handleF1CarUpload.call({ files: input.files });
+  const blob = input.files[0];
+  applyF1Car(URL.createObjectURL(blob));
+  await dbSave('f1_car', blob);
 }
 
-function handleF1CarUpload() {
-  if (!this.files[0]) return;
-  const reader = new FileReader();
-  reader.onload = e => {
-    f1CarReal.src = e.target.result;
-    f1CarReal.classList.add('loaded');
-    f1CarPlaceholder.classList.add('hidden');
-    f1CarChangeBtn.style.display = 'none';
-  };
-  reader.readAsDataURL(this.files[0]);
+function applyF1Car(url) {
+  f1CarReal.src = url;
+  f1CarReal.classList.add('loaded');
+  f1CarPlaceholder.classList.add('hidden');
+  f1CarChangeBtn.classList.add('visible');
 }
+
+async function restoreF1Car() {
+  const blob = await dbLoad('f1_car');
+  if (blob) applyF1Car(URL.createObjectURL(blob));
+}
+
+/* =====================================================
+   BOOT — abrir DB y restaurar todo
+   ===================================================== */
+openDB().then(async () => {
+  await restoreNavLogo();
+  await restoreVideos();
+  await restoreGallery();
+  await restoreF1Car();
+}).catch(err => console.warn('IndexedDB no disponible:', err));
 </script>
 </body>
 </html>
